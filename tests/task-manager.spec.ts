@@ -47,3 +47,46 @@ test("user selects 'Basic Task' and adds a task", async ({ page }) => {
 
   await expect(page.getByPlaceholder("Task Title")).toBeHidden();
 });
+
+test("user selects 'Timed Task' and adds a task", async ({ page }) => {
+  await expect(page.getByText("Task Manager")).toBeVisible();
+
+  await page.getByRole("button", { name: "Select type of task" }).click();
+  await expect(page.getByText("Tasks", { exact: true })).toBeVisible();
+
+  await page.getByRole("menuitem", { name: "Timed Task" }).click();
+  await expect(page.getByPlaceholder("Task Title")).toBeVisible();
+
+  await page.getByPlaceholder("Task Title").click();
+  await expect(page.getByPlaceholder("Description (optional)")).toBeVisible();
+
+  await expect(
+    page.getByRole("button", { name: /Add Timed Task/i })
+  ).toBeDisabled();
+
+  await page.getByPlaceholder("Task Title").fill("Attend Tech Show");
+  await page
+    .getByPlaceholder("Description (optional)")
+    .fill("Yearly event so very important");
+
+  await page.getByRole("button", { name: "Select due date" }).click();
+  await page.getByRole("button", { name: "Friday, May 16th," }).click();
+
+  const addButton = page.getByRole("button", { name: /Add Timed Task/i });
+  await expect(addButton).toBeEnabled();
+  await addButton.click();
+
+  await expect(page.getByText("Attend Tech Show")).toBeVisible();
+  await expect(page.getByText("Yearly event so very important")).toBeVisible();
+  await expect(page.getByText("Task Due: 05/16/")).toBeVisible();
+
+  await page.getByRole("button", { name: "Delete task" }).click();
+
+  await expect(page.getByText("Attend Tech Show")).toBeHidden();
+  await expect(page.getByText("Yearly event so very important")).toBeHidden();
+  await expect(page.getByText("Task Due: 05/16/")).toBeHidden();
+
+  await page.getByRole("button").filter({ hasText: /^$/ }).click();
+
+  await expect(page.getByPlaceholder("Task Title")).toBeHidden();
+});
