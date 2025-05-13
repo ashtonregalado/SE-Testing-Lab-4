@@ -35,12 +35,12 @@ test("user selects 'Basic Task' and adds a task", async ({ page }) => {
   await page.getByRole("button", { name: /Add Task/i }).click();
 
   // Optionally: Check that task was added to the UI
-  await expect(page.getByText("Clean my room").first()).toBeVisible();
+  await expect(page.getByText("Clean my room")).toBeVisible();
 
   // Click the Dete Button and expect the task to be hidden
   await page.getByRole("button", { name: "Delete task" }).click();
 
-  await expect(page.getByText("Clean my room").first()).toBeHidden();
+  await expect(page.getByText("Clean my room")).toBeHidden();
 
   // Click the X Button and expect the Basic Task Input to be hidden
   await page.getByRole("button").filter({ hasText: /^$/ }).click();
