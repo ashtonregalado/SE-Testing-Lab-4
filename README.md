@@ -27,15 +27,17 @@ This option provides a visual walkthrough of each test step, allowing you to see
 3. Select **Show browser**
 4. Click the **Run Test** button to execute the test
 
+![alt text](<Screenshot 2025-05-13 185419.png>)
+
 #### Browser Configuration
 
-To use Firefox instead of the default Chromium:
+To use other browser instead of the default Chromium:
 
 1. Open `playwright.config.js` file
-2. Uncomment the Firefox option in the projects section
+2. Uncomment the Firefox or the Webkit option in the projects section
 3. Comment out the Chromium option
 
-![Example Setup](<Screenshot 2025-05-13 132604.png>)
+![alt text](<Screenshot 2025-05-13 185243.png>)
 
 ## Running the Application
 
