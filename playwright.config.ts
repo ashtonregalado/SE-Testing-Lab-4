@@ -30,6 +30,7 @@ export default defineConfig({
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: "on-first-retry",
+    baseURL: "http://localhost:5173",
   },
 
   /* Configure projects for major browsers */
@@ -71,4 +72,11 @@ export default defineConfig({
   //   url: 'http://127.0.0.1:3000',
   //   reuseExistingServer: !process.env.CI,
   // },
+
+  webServer: {
+    command: "npm run dev", // or 'vite' depending on your setup
+    url: "http://localhost:5173",
+    timeout: 30000, // 30 seconds
+    reuseExistingServer: !process.env.CI, // Only auto-launch in CI
+  },
 });
