@@ -25,7 +25,7 @@ To use Firefox instead of the default Chromium:
 2. Uncomment the Firefox option in the projects section
 3. Comment out the Chromium option
 
-![alt text](<Screenshot 2025-05-13 132604.png>)
+![Example Setup](<Screenshot 2025-05-13 132604.png>)
 
 ## Running the Application
 
