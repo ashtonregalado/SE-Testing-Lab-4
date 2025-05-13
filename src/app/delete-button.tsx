@@ -23,6 +23,7 @@ export const DeleteButton = ({ taskId, onDelete }: DeleteButtonProps) => {
       <Tooltip>
         <TooltipTrigger asChild>
           <Button
+            aria-label="Delete task"
             variant="ghost"
             size="icon"
             className="text-red-500 hover:bg-red-100 hover:text-red-600 transition cursor-pointer"
