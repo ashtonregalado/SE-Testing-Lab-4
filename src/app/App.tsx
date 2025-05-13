@@ -17,6 +17,9 @@ export const App = () => {
 
   return (
     <div>
+      <div className="flex items-center justify-center font-medium p-3">
+        Task Manager
+      </div>
       <TaskTypeSelection setTasks={setTasks} />
       <TaskList tasks={tasks} setTasks={setTasks} />
     </div>
