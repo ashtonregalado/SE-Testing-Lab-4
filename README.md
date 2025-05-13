@@ -2,6 +2,16 @@
 
 ## Running Tests
 
+### Start the backend sever before testing
+
+```bash
+cd backend
+```
+
+```bash
+npm run dev
+```
+
 ### Option 1: Interactive UI Testing
 
 ```bash
