@@ -29,7 +29,11 @@ export const CheckListTask = ({
 
   return (
     <Card
-      className={`transition-all duration-200 ${check ? "bg-white border-blue-200 opacity-50" : "bg-white border-blue-200"} 
+      className={`transition-all duration-200 ${
+        check
+          ? "bg-white border-blue-200 opacity-50"
+          : "bg-white border-blue-200"
+      } 
       ${isHovered ? "shadow-lg border-blue-200" : "shadow-sm"} 
       flex flex-row justify-between items-center p-4 mb-4 border rounded-lg`}
       onMouseEnter={() => setIsHovered(true)}
@@ -41,19 +45,27 @@ export const CheckListTask = ({
             id={`task-${task.id}`}
             checked={check}
             onCheckedChange={() => handleUpdate(task.id, !check)}
-            className={`h-5 w-5 rounded border-2 ${check ? "bg-green-500 border-green-500 text-white cursor-pointer" : "border-gray-300 cursor-pointer"}`}
+            className={`h-5 w-5 rounded border-2 ${
+              check
+                ? "bg-green-500 border-green-500 text-white cursor-pointer"
+                : "border-gray-300 cursor-pointer"
+            }`}
           />
         </div>
 
         <div className="flex flex-col ml-3 flex-1">
           <div
-            className={`font-medium text-base transition-all ${check ? " text-gray-400" : "text-gray-800"}`}
+            className={`font-medium text-base transition-all ${
+              check ? " text-gray-400" : "text-gray-800"
+            }`}
           >
             {task.title}
           </div>
           {task.description && (
             <div
-              className={`text-sm mt-1 transition-all ${check ? "text-gray-400" : "text-gray-600"}`}
+              className={`text-sm mt-1 transition-all ${
+                check ? "text-gray-400" : "text-gray-600"
+              }`}
             >
               {task.description}
             </div>
@@ -62,7 +74,9 @@ export const CheckListTask = ({
       </div>
 
       <div
-        className={`ml-4 transition-opacity ${isHovered ? "opacity-100" : "opacity-70"}`}
+        className={`ml-4 transition-opacity ${
+          isHovered ? "opacity-100" : "opacity-70"
+        }`}
       >
         <DeleteButton taskId={task.id} onDelete={onDelete} />
       </div>

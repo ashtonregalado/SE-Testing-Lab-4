@@ -70,7 +70,7 @@ test("user selects 'Timed Task' and adds a task", async ({ page }) => {
     .fill("Yearly event so very important");
 
   await page.getByRole("button", { name: "Select due date" }).click();
-  await page.getByRole("button", { name: "Friday, May 16th," }).click();
+  await page.getByRole("button", { name: "Friday, May 16th, 2025" }).click();
 
   const addButton = page.getByRole("button", { name: /Add Timed Task/i });
   await expect(addButton).toBeEnabled();
@@ -89,4 +89,54 @@ test("user selects 'Timed Task' and adds a task", async ({ page }) => {
   await page.getByRole("button").filter({ hasText: /^$/ }).click();
 
   await expect(page.getByPlaceholder("Task Title")).toBeHidden();
+});
+
+test("user selects 'Checklist Task' and adds a checklist task", async ({
+  page,
+}) => {
+  // Go to the page and check title is visible
+  await expect(page.getByText("Task Manager")).toBeVisible();
+
+  // Open the dropdown and ensure it renders
+  await page.getByRole("button", { name: "Select type of task" }).click();
+  await expect(page.getByText("Tasks", { exact: true })).toBeVisible();
+
+  // Select 'Checklist Task' and ensure the checklist title input appears
+  await page.getByRole("menuitem", { name: "Checklist Task" }).click();
+  await expect(page.getByPlaceholder("Checklist title")).toBeVisible();
+
+  // Click on the title input to trigger the description input
+  await page.getByPlaceholder("Checklist title").click();
+  await expect(page.getByPlaceholder("Description")).toBeVisible();
+
+  // Verify that Add Checklist Task button is disabled before typing
+  await expect(
+    page.getByRole("button", { name: /Add Checklist Task/i })
+  ).toBeDisabled();
+
+  // Fill in the checklist title and description, confirm the Add button becomes enabled
+  await page.getByPlaceholder("Checklist title").fill("Grocery Shopping");
+  await page.getByPlaceholder("Description").fill("Buy milk, eggs, and bread");
+  await expect(
+    page.getByRole("button", { name: /Add Checklist Task/i })
+  ).toBeEnabled();
+
+  // Click Add Checklist Task
+  await page.getByRole("button", { name: /Add Checklist Task/i }).click();
+
+  // Check that checklist task was added to the UI
+  await expect(page.getByText("Grocery Shopping")).toBeVisible();
+  await expect(page.getByText("Buy milk, eggs, and bread")).toBeVisible();
+
+  // Mark the checklist as complete (toggle checkbox)
+  await page.getByRole("checkbox").check();
+
+  // Optionally: Delete the checklist task and expect it to be hidden
+  await page.getByRole("button", { name: "Delete task" }).click();
+  await expect(page.getByText("Grocery Shopping")).toBeHidden();
+  await expect(page.getByText("Buy milk, eggs, and bread")).toBeHidden();
+
+  // Close the checklist input form
+  await page.getByRole("button").filter({ hasText: /^$/ }).click();
+  await expect(page.getByPlaceholder("Checklist title")).toBeHidden();
 });
