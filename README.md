@@ -9,7 +9,7 @@ cd backend
 ```
 
 ```bash
-npm run dev
+npm run dev:test
 ```
 
 ### Option 1: Interactive UI Testing
