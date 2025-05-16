@@ -1,7 +1,8 @@
 import { test, expect } from "@playwright/test";
 
 // Navigate to the app before each test
-test.beforeEach(async ({ page }) => {
+test.beforeEach(async ({ page, request }) => {
+  await request.post("http://localhost:3000/test/reset");
   await page.goto("http://localhost:5173/");
 });
 
@@ -80,9 +81,14 @@ test("user selects 'Timed Task' and adds a task", async ({ page }) => {
   await expect(page.getByText("Yearly event so very important")).toBeVisible();
   await expect(page.getByText("Task Due: 05/16/")).toBeVisible();
 
+  await page.getByRole("button", { name: "Dismiss" }).click();
+
+  await expect(page.getByText("Attention needed!You have 1")).toBeHidden();
+
   await page.getByRole("button", { name: "Delete task" }).click();
 
   await expect(page.getByText("Attend Tech Show")).toBeHidden();
+
   await expect(page.getByText("Yearly event so very important")).toBeHidden();
   await expect(page.getByText("Task Due: 05/16/")).toBeHidden();
 
